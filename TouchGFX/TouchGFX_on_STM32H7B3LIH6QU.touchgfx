@@ -9,23 +9,23 @@
             "Name": "image1",
             "Width": 480,
             "Height": 272,
-            "RelativeFilename": "my_background.png"
+            "RelativeFilename": "my_background2.png"
           },
           {
             "Type": "FlexButton",
-            "Name": "flexButton1",
-            "X": 22,
-            "Y": 31,
-            "Width": 140,
-            "Height": 52,
+            "Name": "flexButton2",
+            "X": 29,
+            "Y": 215,
+            "Width": 126,
+            "Height": 33,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
             },
             "ButtonStyles": [
               {
                 "Type": "BoxWithBorderButtonStyle",
-                "Width": 140,
-                "Height": 52,
+                "Width": 126,
+                "Height": 33,
                 "LockToFlexButtonSize": true,
                 "BorderSize": 5,
                 "ColorReleased": {
@@ -47,6 +47,31 @@
                 }
               }
             ]
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 36,
+            "Y": 7,
+            "Width": 113,
+            "Height": 24,
+            "TextId": "__SingleUse_V5D1",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "Image",
+            "Name": "image2",
+            "X": 17,
+            "Y": 41,
+            "Width": 150,
+            "Height": 162,
+            "RelativeFilename": "colours.png"
           }
         ],
         "Interactions": []

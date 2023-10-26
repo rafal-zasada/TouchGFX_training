@@ -12,6 +12,8 @@ enum LANGUAGES
 
 enum TEXTS
 {
+    T_RESOURCEID1,
+    T___SINGLEUSE_V5D1,
     NUMBER_OF_TEXT_KEYS
 };
 

@@ -7,7 +7,8 @@
 O_SRCS += \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/images/src/BitmapDatabase.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/images/src/SVGDatabase.o \
-../TouchGFX/build/MINGW32_NT-6.2/generated/images/src/image_my_background.o 
+../TouchGFX/build/MINGW32_NT-6.2/generated/images/src/image_my_background.o \
+../TouchGFX/build/MINGW32_NT-6.2/generated/images/src/image_my_background2.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes

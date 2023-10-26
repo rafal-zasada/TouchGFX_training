@@ -65,7 +65,8 @@ TouchGFX/generated/gui_generated/src/screen_screen/screenViewBase.o: \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/WildcardTextButtonStyle.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
- ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp
+ ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
+ ../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp
 ../TouchGFX/generated/gui_generated/include/gui_generated/screen_screen/screenViewBase.hpp:
 ../TouchGFX/gui/include/gui/common/FrontendApplication.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
@@ -132,3 +133,4 @@ TouchGFX/generated/gui_generated/src/screen_screen/screenViewBase.o: \
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/WildcardTextButtonStyle.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
 ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
+../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp:
