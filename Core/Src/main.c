@@ -69,6 +69,11 @@ const osThreadAttr_t GUI_Task_attributes = {
 };
 /* USER CODE BEGIN PV */
 
+
+// ------------------------- Development board copied code start ----------------------------------
+FMC_SDRAM_CommandTypeDef command;
+// ------------------------- Development board copied code end ------------------------------------
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -82,9 +87,29 @@ static void MX_OCTOSPI1_Init(void);
 static void MX_CRC_Init(void);
 static void MX_LTDC_Init(void);
 void StartDefaultTask(void *argument);
-extern void TouchGFX_Task(void *argument);
+void StartGUI_Task(void *argument);
 
 /* USER CODE BEGIN PFP */
+
+// ------------------------- Development board copied code start ----------------------------------
+
+#define SDRAM_TIMEOUT                    ((uint32_t)0xFFFF)
+#define REFRESH_COUNT                    ((uint32_t)0x0603)
+
+#define SDRAM_MODEREG_BURST_LENGTH_1             ((uint16_t)0x0000)
+#define SDRAM_MODEREG_BURST_LENGTH_2             ((uint16_t)0x0001)
+#define SDRAM_MODEREG_BURST_LENGTH_4             ((uint16_t)0x0002)
+#define SDRAM_MODEREG_BURST_LENGTH_8             ((uint16_t)0x0004)
+#define SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL      ((uint16_t)0x0000)
+#define SDRAM_MODEREG_BURST_TYPE_INTERLEAVED     ((uint16_t)0x0008)
+#define SDRAM_MODEREG_CAS_LATENCY_2              ((uint16_t)0x0020)
+#define SDRAM_MODEREG_CAS_LATENCY_3              ((uint16_t)0x0030)
+#define SDRAM_MODEREG_OPERATING_MODE_STANDARD    ((uint16_t)0x0000)
+#define SDRAM_MODEREG_WRITEBURST_MODE_PROGRAMMED ((uint16_t)0x0000)
+#define SDRAM_MODEREG_WRITEBURST_MODE_SINGLE     ((uint16_t)0x0200)
+
+static void SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command);
+// ------------------------- Development board copied code end ------------------------------------
 
 /* USER CODE END PFP */
 
@@ -134,6 +159,17 @@ int main(void)
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
 
+  // ------------------------- Development board copied code start ----------------------------------
+
+
+  // this code has been copied from development board example
+  SDRAM_Initialization_Sequence(&hsdram1, &command);
+
+//  *(__IO uint32_t*)(0xD0000000) = 0x11111122;  // this will cause mem error. Setup linker file first?
+
+
+  // ------------------------- Development board copied code end ------------------------------------
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -160,9 +196,14 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* creation of GUI_Task */
-  GUI_TaskHandle = osThreadNew(TouchGFX_Task, NULL, &GUI_Task_attributes);
+  GUI_TaskHandle = osThreadNew(StartGUI_Task, NULL, &GUI_Task_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
+
+  // Note: All TouchGFX_Task and its associated entry function touchgfx_taskEntry() has to do is to call.
+  // Note: there is another function provided by generated code "MX_TouchGFX_Process(void)" which can be called to enter
+
+
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
@@ -214,12 +255,12 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 3;
-  RCC_OscInitStruct.PLL.PLLN = 70;
+  RCC_OscInitStruct.PLL.PLLM = 12;
+  RCC_OscInitStruct.PLL.PLLN = 280;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
-  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
+  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_1;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
   RCC_OscInitStruct.PLL.PLLFRACN = 0;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -234,13 +275,13 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_6) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -465,6 +506,8 @@ static void MX_FMC_Init(void)
 
   /* USER CODE BEGIN FMC_Init 2 */
 
+
+
   /* USER CODE END FMC_Init 2 */
 }
 
@@ -553,6 +596,63 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+// ------------------------- Development board copied code start ----------------------------------
+static void SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command)
+{
+  __IO uint32_t tmpmrd =0;
+  /* Step 1:  Configure a clock configuration enable command */
+  Command->CommandMode = FMC_SDRAM_CMD_CLK_ENABLE;
+  Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+  Command->AutoRefreshNumber = 1;
+  Command->ModeRegisterDefinition = 0;
+
+  /* Send the command */
+  HAL_SDRAM_SendCommand(hsdram, Command, SDRAM_TIMEOUT);
+
+  /* Step 2: Insert 100 us minimum delay */
+  /* Inserted delay is equal to 1 ms due to systick time base unit (ms) */
+  HAL_Delay(1);
+
+  /* Step 3: Configure a PALL (precharge all) command */
+  Command->CommandMode = FMC_SDRAM_CMD_PALL;
+  Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+  Command->AutoRefreshNumber = 1;
+  Command->ModeRegisterDefinition = 0;
+
+  /* Send the command */
+  HAL_SDRAM_SendCommand(hsdram, Command, SDRAM_TIMEOUT);
+
+  /* Step 4 : Configure a Auto-Refresh command */
+  Command->CommandMode = FMC_SDRAM_CMD_AUTOREFRESH_MODE;
+  Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+  Command->AutoRefreshNumber = 8;
+  Command->ModeRegisterDefinition = 0;
+
+  /* Send the command */
+  HAL_SDRAM_SendCommand(hsdram, Command, SDRAM_TIMEOUT);
+
+  /* Step 5: Program the external memory mode register */
+  tmpmrd = (uint32_t)SDRAM_MODEREG_BURST_LENGTH_1          |
+                     SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL   |
+                     SDRAM_MODEREG_CAS_LATENCY_2           |
+                     SDRAM_MODEREG_OPERATING_MODE_STANDARD |
+                     SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;
+
+  Command->CommandMode = FMC_SDRAM_CMD_LOAD_MODE;
+  Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+  Command->AutoRefreshNumber = 1;
+  Command->ModeRegisterDefinition = tmpmrd;
+
+  /* Send the command */
+  HAL_SDRAM_SendCommand(hsdram, Command, SDRAM_TIMEOUT);
+
+  /* Step 6: Set the refresh rate counter */
+  /* Set the device refresh rate */
+  HAL_SDRAM_ProgramRefreshRate(hsdram, REFRESH_COUNT);
+
+}
+// ------------------------- Development board copied code end ------------------------------------
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -572,6 +672,30 @@ void StartDefaultTask(void *argument)
     HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_2);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_StartGUI_Task */
+/**
+* @brief Function implementing the GUI_Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartGUI_Task */
+void StartGUI_Task(void *argument)
+{
+  /* USER CODE BEGIN StartGUI_Task */
+
+	MX_TouchGFX_Process(); 	// After creating my GUI_Task (with sufficient stack memory allocation) all I have to do is to call function MX_TouchGFX_Process(),
+							// which eventually leads to C++ process from which it never returns. This TouchGFX core library is private and programmer
+							// can't see the source code, only some binary.
+
+
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartGUI_Task */
 }
 
 /* MPU Configuration */
