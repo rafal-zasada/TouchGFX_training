@@ -11,6 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/containers/buttons/Buttons.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/AnimatedImage.hpp>
 
 class screenViewBase : public touchgfx::View<screenPresenter>
 {
@@ -32,6 +33,7 @@ protected:
     touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  flexButton2;
     touchgfx::TextArea textArea1;
     touchgfx::Image image2;
+    touchgfx::AnimatedImage animatedImage1;
 
 private:
 

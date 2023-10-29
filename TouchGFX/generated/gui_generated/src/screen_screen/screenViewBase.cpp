@@ -31,6 +31,12 @@ screenViewBase::screenViewBase()
     image2.setXY(17, 41);
     image2.setBitmap(touchgfx::Bitmap(BITMAP_COLOURS_ID));
     add(image2);
+
+    animatedImage1.setXY(437, 31);
+    animatedImage1.setBitmaps(BITMAP_ANIM1_ID, BITMAP_ANIM3_ID);
+    animatedImage1.setUpdateTicksInterval(12);
+    animatedImage1.startAnimation(false, true, true);
+    add(animatedImage1);
 }
 
 screenViewBase::~screenViewBase()

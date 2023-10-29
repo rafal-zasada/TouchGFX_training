@@ -26,6 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "app_touchgfx.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -162,7 +164,7 @@ void StartGUI_Task(void *argument)
 {
   /* USER CODE BEGIN StartGUI_Task */
 
-	TouchGFX_Task();
+	MX_TouchGFX_Process();
 
   /* Infinite loop */
   for(;;)

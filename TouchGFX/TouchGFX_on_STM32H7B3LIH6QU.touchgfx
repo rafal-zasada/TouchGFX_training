@@ -72,6 +72,19 @@
             "Width": 150,
             "Height": 162,
             "RelativeFilename": "colours.png"
+          },
+          {
+            "Type": "AnimatedImage",
+            "Name": "animatedImage1",
+            "X": 437,
+            "Y": 31,
+            "Width": 20,
+            "Height": 20,
+            "FileNameFirst": "anim1.png",
+            "FileNameLast": "anim3.png",
+            "UpdateTicksInterval": 200,
+            "StartOnLoad": true,
+            "LoopEnabled": true
           }
         ],
         "Interactions": []

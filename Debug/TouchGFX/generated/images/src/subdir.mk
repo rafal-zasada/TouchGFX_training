@@ -7,18 +7,27 @@
 CPP_SRCS += \
 ../TouchGFX/generated/images/src/BitmapDatabase.cpp \
 ../TouchGFX/generated/images/src/SVGDatabase.cpp \
+../TouchGFX/generated/images/src/image_anim1.cpp \
+../TouchGFX/generated/images/src/image_anim2.cpp \
+../TouchGFX/generated/images/src/image_anim3.cpp \
 ../TouchGFX/generated/images/src/image_colours.cpp \
 ../TouchGFX/generated/images/src/image_my_background2.cpp 
 
 OBJS += \
 ./TouchGFX/generated/images/src/BitmapDatabase.o \
 ./TouchGFX/generated/images/src/SVGDatabase.o \
+./TouchGFX/generated/images/src/image_anim1.o \
+./TouchGFX/generated/images/src/image_anim2.o \
+./TouchGFX/generated/images/src/image_anim3.o \
 ./TouchGFX/generated/images/src/image_colours.o \
 ./TouchGFX/generated/images/src/image_my_background2.o 
 
 CPP_DEPS += \
 ./TouchGFX/generated/images/src/BitmapDatabase.d \
 ./TouchGFX/generated/images/src/SVGDatabase.d \
+./TouchGFX/generated/images/src/image_anim1.d \
+./TouchGFX/generated/images/src/image_anim2.d \
+./TouchGFX/generated/images/src/image_anim3.d \
 ./TouchGFX/generated/images/src/image_colours.d \
 ./TouchGFX/generated/images/src/image_my_background2.d 
 
@@ -30,7 +39,7 @@ TouchGFX/generated/images/src/%.o TouchGFX/generated/images/src/%.su TouchGFX/ge
 clean: clean-TouchGFX-2f-generated-2f-images-2f-src
 
 clean-TouchGFX-2f-generated-2f-images-2f-src:
-	-$(RM) ./TouchGFX/generated/images/src/BitmapDatabase.cyclo ./TouchGFX/generated/images/src/BitmapDatabase.d ./TouchGFX/generated/images/src/BitmapDatabase.o ./TouchGFX/generated/images/src/BitmapDatabase.su ./TouchGFX/generated/images/src/SVGDatabase.cyclo ./TouchGFX/generated/images/src/SVGDatabase.d ./TouchGFX/generated/images/src/SVGDatabase.o ./TouchGFX/generated/images/src/SVGDatabase.su ./TouchGFX/generated/images/src/image_colours.cyclo ./TouchGFX/generated/images/src/image_colours.d ./TouchGFX/generated/images/src/image_colours.o ./TouchGFX/generated/images/src/image_colours.su ./TouchGFX/generated/images/src/image_my_background2.cyclo ./TouchGFX/generated/images/src/image_my_background2.d ./TouchGFX/generated/images/src/image_my_background2.o ./TouchGFX/generated/images/src/image_my_background2.su
+	-$(RM) ./TouchGFX/generated/images/src/BitmapDatabase.cyclo ./TouchGFX/generated/images/src/BitmapDatabase.d ./TouchGFX/generated/images/src/BitmapDatabase.o ./TouchGFX/generated/images/src/BitmapDatabase.su ./TouchGFX/generated/images/src/SVGDatabase.cyclo ./TouchGFX/generated/images/src/SVGDatabase.d ./TouchGFX/generated/images/src/SVGDatabase.o ./TouchGFX/generated/images/src/SVGDatabase.su ./TouchGFX/generated/images/src/image_anim1.cyclo ./TouchGFX/generated/images/src/image_anim1.d ./TouchGFX/generated/images/src/image_anim1.o ./TouchGFX/generated/images/src/image_anim1.su ./TouchGFX/generated/images/src/image_anim2.cyclo ./TouchGFX/generated/images/src/image_anim2.d ./TouchGFX/generated/images/src/image_anim2.o ./TouchGFX/generated/images/src/image_anim2.su ./TouchGFX/generated/images/src/image_anim3.cyclo ./TouchGFX/generated/images/src/image_anim3.d ./TouchGFX/generated/images/src/image_anim3.o ./TouchGFX/generated/images/src/image_anim3.su ./TouchGFX/generated/images/src/image_colours.cyclo ./TouchGFX/generated/images/src/image_colours.d ./TouchGFX/generated/images/src/image_colours.o ./TouchGFX/generated/images/src/image_colours.su ./TouchGFX/generated/images/src/image_my_background2.cyclo ./TouchGFX/generated/images/src/image_my_background2.d ./TouchGFX/generated/images/src/image_my_background2.o ./TouchGFX/generated/images/src/image_my_background2.su
 
 .PHONY: clean-TouchGFX-2f-generated-2f-images-2f-src
 

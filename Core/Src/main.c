@@ -135,12 +135,11 @@ int main(void)
 
   // ------------------------- Development board copied code start ----------------------------------
 
+  // Note: When you use frame buffer by allocation (frame buffer will be located in internal memory) then in LTDC settings enter address 0.
 
-  // this code has been copied from development board example
   SDRAM_Initialization_Sequence(&hsdram1, &command);
 
   // *(__IO uint32_t*)(0xD0000000) = 0x11111122;  // this will cause mem error. What is the purpose of this line in example project?
-
 
   // ------------------------- Development board copied code end ------------------------------------
 
